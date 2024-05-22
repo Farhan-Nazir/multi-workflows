@@ -41,14 +41,14 @@ jobs:
 
           # Set output
           echo "Changed directories: $changed_directories_json"
-          echo "::set-output name=changed_directories::$changed_directories_json"
+          echo "::set-output name=changed_directories::toJson($changed_directories_json)"
 
   build_directories:
     runs-on: ubuntu-latest
     needs: check_changes
     strategy:
       matrix:
-        directory:  ['node-1']
+        directory: ${{ fromJson(needs.check_changes.outputs.changed_directories) }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
