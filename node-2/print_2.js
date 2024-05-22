@@ -1,1 +1,1 @@
-console.log("Workflow 2: Print 2 - New");
+console.log("Workflow 2: Print 2 ");
