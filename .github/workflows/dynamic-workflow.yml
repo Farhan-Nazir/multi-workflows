@@ -48,14 +48,14 @@ jobs:
     needs: check_changes
     strategy:
       matrix:
-        directory: ${{ fromArray(needs.check_changes.outputs.changed_directories) }}
+        directory: ${{ ['node-1'] }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Fetch all history
 
-      - name: Build ${{ strategy.matrix.directory }}
+      - name: Build ${{ matrix.directory }}
         run: |
-          echo "Running build for ${{ strategy.matrix.directory }}"
+          echo "Running build for ${{ matrix.directory }}"
           # Add your build steps here for ${{ matrix.directory }}
