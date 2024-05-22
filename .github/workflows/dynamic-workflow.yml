@@ -41,7 +41,7 @@ jobs:
 
           # Set output
           echo "Changed directories: $changed_directories_json"
-          echo "::set-output name=changed_directories::toJson($changed_directories_json)"
+          echo "::set-output name=changed_directories::toJSON($changed_directories_json)"
 
   build_directories:
     runs-on: ubuntu-latest
