@@ -24,16 +24,21 @@ jobs:
             # Handle cases where before is empty
             base_commit=$(git rev-parse HEAD^1)
           fi
-          
+
           # Get a list of changed files
           changed_files=$(git diff --name-only $base_commit ${{ github.sha }})
-          
+
           # Extract top-level directories
           changed_directories=$(echo "$changed_files" | grep '/' | cut -d/ -f1 | sort -u)
-          
+
           # Convert to JSON array
-          changed_directories_json=$(echo "$changed_directories" | jq -R . | jq -s .)
-          
+          if [ -z "$changed_directories" ]; then
+            # Handle cases where no directories are changed
+            changed_directories_json='[]'
+          else
+            changed_directories_json=$(echo "$changed_directories" | jq -R . | jq -s .)
+          fi
+
           # Set output
           echo "Changed directories: $changed_directories_json"
           echo "::set-output name=changed_directories::$changed_directories_json"
